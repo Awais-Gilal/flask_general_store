@@ -1,5 +1,7 @@
+from flask import render_template, url_for
 from general_store import app
-from flask import render_template
+from general_store.modules import Item
+from general_store.forms import RegisterForm
 
 
 @app.route("/")
@@ -9,20 +11,11 @@ def home():
 
 @app.route("/market")
 def market():
-  data = [{
-    "name": "pen",
-    "price": 20,
-    "barcode": 929929,
-    "description": "pen description"
-  }, {
-    "name": "book",
-    "price": 200,
-    "barcode": 929000,
-    "description": "book description"
-  }, {
-    "name": "pencil",
-    "price": 10,
-    "barcode": 999999,
-    "description": "pencil description"
-  }]
+  with app.app_context():
+    data = Item.query.all()
   return render_template("market.html", items=data)
+
+@app.route("/register")
+def register():
+  form = RegisterForm()
+  return render_template("register.html", form=form)
