@@ -1,6 +1,4 @@
 from general_store import app
 
-
-
 if __name__ == "__main__":
-  app.run( port=81, host='0.0.0.0')
+  app.run(port=81, host='0.0.0.0')

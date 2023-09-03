@@ -21,6 +21,19 @@
     <body class="bg-info text-center">
       <div class="container">
         <form method="post">
+          {{ form.hidden_tag() }}
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}}">
+                {{ message[0]}}
+                <button class="m1-2 mb-1 close justify-content-right" data-dismiss="alert" aria-label="Close" onclick="dismissAlert(this)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% endwith %}
           <div class="rounded-circle">
             
             <img class="mb-4 img-thumbnail" src="">
@@ -48,5 +61,14 @@
           margin-bottom:15px;
         }
       </style>
+      <script>
+    function dismissAlert(button) {
+        // Find the parent alert div and hide it
+        const alertDiv = button.closest(".alert");
+        if (alertDiv) {
+            alertDiv.style.display = "none";
+        }
+    }
+      </script>
     </body>
 </html>

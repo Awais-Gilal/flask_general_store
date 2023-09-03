@@ -11,7 +11,9 @@ class User(db.Model):
   Budget = db.Column(db.Integer(), default=1000, nullable=False)
   items = db.relationship("Item", backref="user_owned", lazy=True)
   def __repr__(self):
-    return f"Id {self.id}"
+    return f"< Id {self.id} >"
+
+
 
 class Item(db.Model):
   id = db.Column(db.Integer(), primary_key=True, nullable=False, unique=True)
