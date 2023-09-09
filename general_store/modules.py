@@ -10,6 +10,7 @@ class User(db.Model):
   password = db.Column(db.String(length=60), nullable=True, unique=False)
   Budget = db.Column(db.Integer(), default=1000, nullable=False)
   items = db.relationship("Item", backref="user_owned", lazy=True)
+
   def __repr__(self):
     return f"< Id {self.id} >"
 

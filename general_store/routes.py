@@ -16,24 +16,21 @@ def market_page():
   return render_template("market.html", items=data)
 
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
   form = RegisterForm()
   if form.validate_on_submit():
-    data_to_submit = User(user=form.username.data, email=form.email.data, password=form.password1.data)
+    data_to_submit = User(user=form.username.data,
+                          email=form.email.data,
+                          password=form.password1.data)
     with app.app_context():
       db.session.add(data_to_submit)
       db.session.commit()
     return redirect(url_for('market_page'))
   if form.errors:
     for error in form.errors.values():
-      flash(error , category="danger")
+      flash(error, category="danger")
   return render_template("register.html", form=form)
-
-
-
-
 
 
 
@@ -48,11 +45,9 @@ def user_test():
   with app.app_context():
     d = User.query.all()
     for v in d:
-      data.append({
-        "name": v.user,
-        "email":v.email
-      })
+      data.append({"name": v.user, "email": v.email})
   return jsonify(data)
+
 
 @app.route("/item")
 def item_test():
@@ -60,8 +55,5 @@ def item_test():
   with app.app_context():
     d = Item.query.all()
     for v in d:
-      data.append({
-        "name": v.name,
-        "price":v.price
-      })
+      data.append({"name": v.name, "price": v.price})
   return jsonify(data)
