@@ -21,14 +21,14 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
     </head>
-    <body>
+    <body class="{% block background_class%}{% endblock%}">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-md navbar-light" id="main">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="/">
-                  <b>
-                    {% block nav %}{% endblock %}
-                  </b>
+                  <h2>
+                    <b>{% block nav %}{% endblock %}</b>
+                  </h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
                     Menu
@@ -36,10 +36,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                      {% if current_user.is_atthenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('home_page') }}"><b>Home</b></a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('market_page')}}"><b>Market</b></a></li>
+                      {% else %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('register_page')}}"><b>Register</b></a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="/login"><b>Login</b></a></li>
+                      {% endif %}
                     </ul>
                 </div>
             </div>

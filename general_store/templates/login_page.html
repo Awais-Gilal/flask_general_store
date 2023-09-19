@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Login here
+{% endblock %}
+
+{% block nav %}
+  Flask homepage
+{% endblock %}
+
+{% block background_class %}
+  container text-center bg-info
+{% endblock%}
+
+{% block body %}
+
+  <form method="post">
+    <div class="container">
+      {% with message = get_flashed_messages(with_categories=ture) %}
+        {% for msg in message %}
+          <div class="alert alert-danger" >
+            {{ msg }}
+            <button type="button" class="btn-close" aria-label="Close" data-dismiss="alert(this)" onclick="dismissAlert(this)" ></button>
+          </div>
+        {% endfor %}
+      {% endwith%}
+      <h2>login </h2>
+      {{ form.hidden_tag() }}
+      
+      {{ form.email_address.label(class="form-lable" ) }}
+      {{ form.email_address(class="form-control inp", placeholder="Email Address...") }}
+      
+      {{ form.password.label(class="form-lable" ) }}
+      {{ form.password(class="form-control inp", placeholder="Password...") }}
+      <br/>
+      <p>Don't have account <a href="{{url_for('register_page')}}">register here</a></p>
+      
+      {{ form.submit(class="btn btn-lg btn-primary") }}
+
+    </div>
+  </form>
+  <script>
+    function dismissAlert(button) {
+        // Find the parent alert div and hide it
+        const alertDiv = button.closest(".alert");
+        if (alertDiv) {
+            alertDiv.style.display = "none";
+        }
+    }
+  </script>
+{% endblock %}
